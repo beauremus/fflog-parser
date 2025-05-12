@@ -5,6 +5,7 @@ A Python script specifically configured to fetch and extract boss health time-se
 ## Prerequisites
 
 - Python 3.7+
+  - Tested with 3.7.9
 - `requests` library (for making HTTP requests)
 
 ## Setup
