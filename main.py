@@ -80,8 +80,6 @@ def fetch_fight_health_data(report_code, fight_id, headers):
 
         if "series" in report_graph_data:
             for series_item in report_graph_data["series"]:
-                boss_name = series_item.get("name")
-
                 if series_item.get("type") == "Boss":
                     boss_health_series = series_item
                     break
@@ -99,7 +97,7 @@ def fetch_fight_health_data(report_code, fight_id, headers):
             }
         else:
             print(
-                f"Warning: Boss series '{boss_name}' not found for fight {fight_id}."
+                f"Warning: No boss series for fight {fight_id}."
             )
             return None
 
