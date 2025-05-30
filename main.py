@@ -27,6 +27,20 @@ all_boss_health_data = {}
 
 
 def get_dynamic_headers(report_code, encounter_id = 97, difficulty_id = 101):
+    """
+    Constructs dynamic headers for FFLogs API requests, including a Referer.
+    This mimics a browser request originating from a specific report page.
+
+    Args:
+        report_code (str): The FFLogs report code.
+        encounter_id (int): The ID of the specific encounter/boss (e.g., 97 for M5).
+                            This is part of the URL when viewing a specific boss's page on FFLogs.
+        difficulty_id (int): The ID of the difficulty setting (e.g., 101 for Savage, 100 for Normal).
+                             This is part of the URL when viewing a specific difficulty's page on FFLogs.
+
+    Returns:
+        dict: A dictionary of HTTP headers.
+    """
     referer_url = f"https://www.fflogs.com/reports/{report_code}?boss={encounter_id}&difficulty={difficulty_id}&wipes=1&hostility=1&type=resources"
     headers = BASE_HEADERS.copy()
     headers["Referer"] = referer_url
@@ -68,6 +82,20 @@ def get_fight_count(report_code, headers):
 
 
 def fetch_fight_health_data(report_code, fight_id, headers):
+    """
+    Fetches boss health data for a specific fight within an FFLogs report.
+    The URL is constructed to precisely specify the start and end times of the fight
+    to ensure only data relevant to that single fight is retrieved.
+
+    Args:
+        report_code (str): The FFLogs report code.
+        fight_id (int): An integer representing details for the specific fight.
+        headers (dict): HTTP headers for the request.
+
+    Returns:
+        dict: A dictionary containing 'fight_id' and 'health_percentage_series' ([timestamp, healthPercentage] tuples),
+              or None if data cannot be retrieved or parsed.
+    """
     url = f"https://www.fflogs.com/reports/resources-graph/{report_code}/0/0/{REPORT_END_TIME}/1000/{fight_id}/0/0/97.1.101.-1/0/Any"
     print(f"Fetching data for fight ID: {fight_id}")
 
