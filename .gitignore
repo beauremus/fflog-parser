@@ -174,4 +174,4 @@ cython_debug/
 .pypirc
 
 # No generated output
-*boss_health_all_fights.json
+*boss_health_all_fights*.json
